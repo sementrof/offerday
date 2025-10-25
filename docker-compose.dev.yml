@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: offerday_db_dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: offerday_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    volumes:
+      - postgres_dev_data:/var/offerday/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - offerday_dev_network
+
+
+volumes:
+  postgres_dev_data:
+    driver: local
+
+networks:
+  offerday_dev_network:
+    driver: bridge
