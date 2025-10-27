@@ -19,6 +19,7 @@ var validate = validator.New()
 type ApiInterface interface {
 	CreateUsersPost(w http.ResponseWriter, r *http.Request)
 	CreateCategoriesPost(w http.ResponseWriter, r *http.Request)
+	CreateLocationsPost(w http.ResponseWriter, r *http.Request)
 }
 
 type ApiImplemented struct {
@@ -83,6 +84,34 @@ func (im *ApiImplemented) CreateCategoriesPost(w http.ResponseWriter, r *http.Re
 		UpdatedAt: time.Now(),
 	}
 	errs := im.deps.DB.Categories.NewInsertCategories(ctx, &categories)
+	if errs != nil {
+		im.deps.Logger.Error("Failed to create user", zap.Error(errs))
+		http.Error(w, "Failed to create user", http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusCreated)
+}
+
+func (im *ApiImplemented) CreateLocationsPost(w http.ResponseWriter, r *http.Request) {
+	var inputLocations db.Locations
+	ctx := context.Background()
+
+	if err := json.NewDecoder(r.Body).Decode(&inputLocations); err != nil {
+		http.Error(w, "Failed to parse request body", http.StatusBadRequest)
+		return
+	}
+	if err := validate.Struct(inputLocations); err != nil {
+		http.Error(w, fmt.Sprintf("Validation error: %s", err.Error()), http.StatusUnprocessableEntity)
+		return
+	}
+	locations := db.Locations{
+		Id:        inputLocations.Id,
+		Name:      inputLocations.Name,
+		Addres:    inputLocations.Addres,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	}
+	errs := im.deps.DB.Locations.NewInsertLocations(ctx, &locations)
 	if errs != nil {
 		im.deps.Logger.Error("Failed to create user", zap.Error(errs))
 		http.Error(w, "Failed to create user", http.StatusInternalServerError)

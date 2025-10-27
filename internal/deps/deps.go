@@ -13,6 +13,7 @@ import (
 type DB struct {
 	Users      db.UsersQuery
 	Categories db.CategoriesQuery
+	Locations  db.LocationsQuery
 }
 
 type Dependencies struct {
@@ -34,6 +35,7 @@ func ProvideDependencies(ctx context.Context, cfg config.AppConfig) (*Dependenci
 		DB: DB{
 			Users:      db.NewUsersQuery(pool, logger),
 			Categories: db.NewCategoriesQuery(pool, logger),
+			Locations:  db.NewLocationsQuery(pool, logger),
 		},
 		Pool:   pool,
 		Logger: logger,
