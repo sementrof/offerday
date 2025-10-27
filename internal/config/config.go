@@ -20,7 +20,7 @@ func LoadConfig() AppConfig {
 		return AppConfig{}
 	}
 	return AppConfig{
-		Port:       os.Getenv("Port"),
+		Port:       os.Getenv("PORT"),
 		DBHost:     os.Getenv("DBHost"),
 		DBUser:     os.Getenv("DB_USER"),
 		DBPassword: os.Getenv("DB_PASSWORD"),

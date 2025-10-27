@@ -4,6 +4,7 @@ go 1.23.4
 
 require (
 	github.com/go-playground/validator v9.31.0+incompatible
+	github.com/gofrs/uuid v4.4.0+incompatible
 	github.com/gorilla/mux v1.8.1
 	github.com/jackc/pgx/v5 v5.7.6
 	github.com/joho/godotenv v1.5.1

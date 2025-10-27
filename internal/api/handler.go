@@ -16,16 +16,23 @@ func NewTaskServer(api v1.ApiInterface) *TaskServer {
 	return &TaskServer{api: api}
 }
 
-func (s *TaskServer) CreateOrganizationPost(w http.ResponseWriter, r *http.Request) {
-	s.api.CreateOrganizationPost(w, r)
+func (s *TaskServer) CreateUsersPost(w http.ResponseWriter, r *http.Request) {
+	s.api.CreateUsersPost(w, r)
+}
+
+func (s *TaskServer) HealthCheck(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Server is running"))
 }
 
 func SetupRouter(api v1.ApiInterface) *mux.Router {
 	router := mux.NewRouter()
 	router.StrictSlash(true)
 
-	// server := NewTaskServer(api)
-	// router.HandleFunc("/registration/user", server.createUserPost).Methods("POST")
+	server := NewTaskServer(api)
+	router.HandleFunc("/", server.HealthCheck).Methods("GET")
+	router.HandleFunc("/api/auth/register", server.CreateUsersPost).Methods("POST")
+	router.HandleFunc("/api/categories", server.api.CreateCategoriesPost).Methods("POST")
 
 	return router
 
