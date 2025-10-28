@@ -7,4 +7,8 @@ curl -X POST http://localhost:8080/user \
  curl -X POST http://localhost:8080/api/categories \
      -H "Content-Type: application/json" \
      -d '{"name":"Alice"}' -v
+     
 
+ curl -X POST http://localhost:8080/api/locations \
+     -H "Content-Type: application/json" \
+     -d '{"name":"Alice", "addres":"sdf"}' -v

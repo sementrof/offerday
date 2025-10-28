@@ -24,6 +24,10 @@ func (s *TaskServer) CreateCategoriesPost(w http.ResponseWriter, r *http.Request
 	s.api.CreateCategoriesPost(w, r)
 }
 
+func (s *TaskServer) CreateEventsPost(w http.ResponseWriter, r *http.Request) {
+	s.api.CreateEventsPost(w, r)
+}
+
 func (s *TaskServer) HealthCheck(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Server is running"))
@@ -38,6 +42,7 @@ func SetupRouter(api v1.ApiInterface) *mux.Router {
 	router.HandleFunc("/api/auth/register", server.CreateUsersPost).Methods("POST")
 	router.HandleFunc("/api/categories", server.api.CreateCategoriesPost).Methods("POST")
 	router.HandleFunc("/api/locations", server.api.CreateLocationsPost).Methods("POST")
+	router.HandleFunc("/api/events", server.api.CreateEventsPost).Methods("POST")
 
 	return router
 

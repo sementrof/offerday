@@ -14,6 +14,7 @@ type DB struct {
 	Users      db.UsersQuery
 	Categories db.CategoriesQuery
 	Locations  db.LocationsQuery
+	Events     db.EventsQuery
 }
 
 type Dependencies struct {
@@ -36,6 +37,7 @@ func ProvideDependencies(ctx context.Context, cfg config.AppConfig) (*Dependenci
 			Users:      db.NewUsersQuery(pool, logger),
 			Categories: db.NewCategoriesQuery(pool, logger),
 			Locations:  db.NewLocationsQuery(pool, logger),
+			Events:     db.NewEventsQuery(pool, logger),
 		},
 		Pool:   pool,
 		Logger: logger,
