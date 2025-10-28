@@ -16,7 +16,7 @@ type AppConfig struct {
 }
 
 func LoadConfig() AppConfig {
-	if err := godotenv.Load("./.env"); err != nil {
+	if err := godotenv.Load("./env/.env"); err != nil {
 		return AppConfig{}
 	}
 	return AppConfig{
