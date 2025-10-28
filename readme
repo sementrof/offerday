@@ -12,3 +12,15 @@ curl -X POST http://localhost:8080/user \
  curl -X POST http://localhost:8080/api/locations \
      -H "Content-Type: application/json" \
      -d '{"name":"Alice", "addres":"sdf"}' -v
+
+
+curl -X POST http://localhost:8080/api/events \
+     -H "Content-Type: application/json" \
+     -d '{
+       "title":"Alice",
+       "description":"sfsfs",
+       "date":"2025-01-01T15:04:05Z",
+       "organizerId":"3672b329-c557-4bd4-882b-1c0064b9c7fc",
+       "categoryId":"c931042d-9f85-4912-b310-1c323703f0a7",
+       "locationId":"5e00dd4a-2ce5-4544-84f2-86dd32033554"
+     }' -v

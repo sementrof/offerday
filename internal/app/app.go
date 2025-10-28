@@ -26,7 +26,7 @@ func Run() {
 
 	}
 	apiSetup := v1.NewApi(depends)
-	router := api.SetupRouter(apiSetup)
+	router := api.SetupRouter(apiSetup, depends.Logger)
 
 	go func() {
 		if err := http.ListenAndServe(":"+cfg.Port, router); err != nil {
